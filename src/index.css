@@ -1,0 +1,4 @@
+@import url('/src/vendor/normalize.css');
+@import url('/src/vendor/fonts/fonts.css');
+@import url('/src/components/App/App.css');
+@import url('/src/components/Main/Promo/Promo.css');
