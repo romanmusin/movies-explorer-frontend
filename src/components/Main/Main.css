@@ -1,0 +1,27 @@
+.main__title {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin: 0 0 23px 0;
+}
+
+.main__line {
+  background: #dadada;
+  height: 1px;
+  margin: 0 0 70px 0;
+}
+
+.main__line_footer {
+  background: #424242;
+}
+
+@media screen and (max-width: 767px) {
+  .main__title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
