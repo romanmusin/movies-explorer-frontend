@@ -1,7 +1,7 @@
 import React from "react";
 import './MoreBtn.css';
 
-function MoreMoviesBtn({ isEmpty, onMoreMovies, isEnabledBtn }) {
+function MoreBtn({ isEmpty, onMoreMovies, isEnabledBtn }) {
   function handleMoreMoviesBtn() {
     onMoreMovies();
   }
@@ -18,4 +18,4 @@ function MoreMoviesBtn({ isEmpty, onMoreMovies, isEnabledBtn }) {
   );
 }
 
-export default MoreMoviesBtn;
+export default MoreBtn;

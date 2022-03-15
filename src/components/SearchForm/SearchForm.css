@@ -43,9 +43,9 @@
 }
 
 .searchForm__find-btn {
-  background: #4285f4;
-  border-radius: 48px;
   background-image: url("../../images/search.svg");
+  background-color: #4285f4;
+  border-radius: 48px;
   background-repeat: no-repeat;
   background-position: center;
   padding: 0;
@@ -62,13 +62,8 @@
   opacity: 0.7;
 }
 
-/*.searchForm__find-btn:active {
+.searchForm__find-btn:active {
   opacity: 0.3;
-}*/
-
-.searchForm__find-btn:focus {
-  outline: none;
-  opacity: 0.2;
 }
 
 .searchForm__box {

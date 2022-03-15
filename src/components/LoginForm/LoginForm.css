@@ -40,10 +40,6 @@
   margin-bottom: 24px;
 }
 
-.login__inputs-block_disabled {
-  display: none;
-}
-
 .login__input-text:last-of-type {
   margin-bottom: 6px;
 }
@@ -66,6 +62,10 @@
   font-size: 14px;
   line-height: 17px;
   color: #ffffff;
+}
+
+.login__input-text_error {
+  color: #ee3465;
 }
 
 .login__text-error {
@@ -110,6 +110,11 @@
   opacity: 0.3;
 }
 
+.login__register-btn_disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 .login__text {
   font-style: normal;
   font-weight: normal;
@@ -136,10 +141,6 @@
 
 .login__link:active {
   opacity: 0.3;
-}
-
-.login__text-error {
-    display: none;
 }
 
 @media screen and (max-width: 860px) {
