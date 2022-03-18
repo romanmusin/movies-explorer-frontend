@@ -40,6 +40,10 @@
   margin-bottom: 24px;
 }
 
+.login__inputs-block_disabled {
+  display: none;
+}
+
 .login__input-text:last-of-type {
   margin-bottom: 6px;
 }
@@ -69,11 +73,42 @@
 }
 
 .login__text-error {
+  display: flex;
   font-style: normal;
   font-weight: normal;
   font-size: 10px;
   line-height: 12px;
   color: #ee3465;
+}
+
+.login__text-error_hidden {
+  display: none;
+}
+
+.login__text-password {
+  display: flex;
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 1.1;
+  display: none;
+}
+
+.password_weak {
+  color: #ee3465;
+  display: block;
+}
+
+.password_middle {
+  color: orange;
+  display: block;
+}
+
+.password_strong {
+  color: #2be080;
+  display: block;
+  bottom: 6px;
 }
 
 .login__buttons {

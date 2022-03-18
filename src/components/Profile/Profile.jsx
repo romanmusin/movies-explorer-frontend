@@ -1,40 +1,61 @@
-import { useContext, useRef, useState } from "react";
-import "./Profile.css";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { AppContext } from "../../contexts/AppContext";
-import { useValidationForm } from "../../utils/formValidation";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function Profile(props) {
-  const value = useContext(AppContext);
-  
-  const [isEdit, setIsEdit] = useState(false);
+import './Profile.css';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-  
-  function handleOnEdit() {
-    setIsEdit(!isEdit);
+import { useFormWithValidation } from '../ValidationForm/ValidationForm';
+
+function Profile({
+  onUpdateUser, message, status, onSignOut,
+}) {
+  const currentUser = React.useContext(CurrentUserContext);
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
+
+  useEffect(() => {
+    if (currentUser) {
+      setName(currentUser.name);
+      setEmail(currentUser.email);
+    }
+  }, [currentUser]);
+
+  const {
+    handleChange,
+    errors,
+    isValid,
+    resetForm,
+    values,
+  } = useFormWithValidation();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (isValid || (currentUser.name === values.name || currentUser.email === values.email)) {
+      resetForm();
+      await onUpdateUser({ name, email });
+      setShowMessage(true);
+    }
   }
 
-  const { values, handleErrors, errors, isValid } = useValidationForm();
+  function handleInputNameChange(e) {
+    setName(e.target.value);
+    handleChange(e);
+    setShowMessage(false);
+  }
 
-  const inputRef = useRef();
-
-  const currentUser = useContext(CurrentUserContext);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    props.onUpdateUser(
-      e,
-      values.name || currentUser.name,
-      values.email || currentUser.email
-    );
-    setIsEdit(false);
+  function handleInputEmailChange(e) {
+    setEmail(e.target.value);
+    handleChange(e);
+    setShowMessage(false);
   }
 
   return (
     <section className="profile">
       <form className="profile__form" onSubmit={handleSubmit}>
         <div>
-          <h2 className="profile__title">Привет, {currentUser.name}!</h2>
+          <h2 className="profile__title">{`Привет, ${name || 'друг'}!`}</h2>
           <div className="profile__inputs-container">
             <label htmlFor="password" className="profile__label">
               Имя
@@ -43,20 +64,19 @@ function Profile(props) {
               name="name"
               className="profile__input"
               type="text"
-              onChange={handleErrors}
-              autoComplete="off"
-              ref={inputRef}
-              minLength="3"
-              placeholder="Имя"
-              defaultValue={currentUser.name}
-              //disabled={!isEdit}
+              onChange={handleInputNameChange}
+              placeholder="Name"
+              value={name || ''}
+              pattern="^[a-zA-Zа-яёЁА-Я\s-]+$"
+              minLength="2"
+              maxLength="30"
               required
             ></input>
             
           </div>
-          <span className="login__text-error">
-              {errors.name}
-            </span>
+          {errors.name && (
+              <span className="login__text-error">{errors.name}</span>
+            )}
           <div className="profile__inputs-container">
             <label htmlFor="password" className="profile__label">
               E-mail
@@ -66,49 +86,25 @@ function Profile(props) {
               className="profile__input"
               type="email"
               placeholder="Email"
-              defaultValue={currentUser.email}
-              ref={inputRef}
-              onChange={handleErrors}
-              autoComplete="off"
-              //disabled={!isEdit}
+              onChange={handleInputEmailChange}
+              value={email || ''}
               required
             ></input>
           </div>
-          <span className='login__text-error'>{errors.email}</span>
+          
+          {errors.email && (
+              <span className="login__text-error">{errors.email}</span>
+            )}
         </div>
-        <div>
-          {/* <button
-            className="profile__submit-btn"
-            type="submit"
-          >
+        <div className='profile__btns-block'>
+        <p className={`profile__api  ${status === false && showMessage === true ? 'profile__api_error profile__api_enabled' : ''}`}>{message}</p>
+          <p className={`profile__api  ${status === true && showMessage === true ? 'profile__api_successful profile__api_enabled' : ''}`}>Данные обновлены успешно!</p>
+          <button className={`profile__submit-btn ${(!isValid || (currentUser.name === values.name || currentUser.email === values.email)) ? 'profile__submit-btn_disabled' : 'profile__submit-btn_enabled'}`} type="submit" disabled={!isValid || (currentUser.name === values.name || currentUser.email === values.email)}>
             Редактировать
-          </button> */}
-
-          {isEdit ? (
-            <button
-              type="submit"
-              onClick={handleSubmit}
-              disabled={!isValid}
-              className={`profile__submit-btn ${
-                !isValid && "profile__submit-btn_disabled"
-              }`}
-            >
-              Сохранить
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={handleOnEdit}
-              className="profile__submit-btn"
-            >
-              Редактировать
-            </button>
-          )}
-
-          {/* <Link to="/" className="profile__logout-btn">
+          </button>
+          <Link className="profile__logout-btn" type="button" to="/" onClick={onSignOut}>
             Выйти из аккаунта
-          </Link> */}
-          <button type="button" onClick={value.signOut} className='profile__logout-btn'>Выйти из аккаунта</button>
+          </Link>
         </div>
       </form>
     </section>

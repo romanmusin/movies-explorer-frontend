@@ -87,6 +87,11 @@
   margin: 0 29px 0 19px;
 }
 
+.searchForm__text-error {
+  margin-top: -55px;
+  margin-bottom: calc(61px - 7px);
+}
+
 @media screen and (max-width: 1279px) {
   .searchForm {
     padding: 80px 30px 2px;

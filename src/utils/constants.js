@@ -1,33 +1,11 @@
-export const statusSuccessMessage = 'Вы успешно зарегистрировались!';
-export const statusLoadMessage = 'Идет загрузка...';
-export const statusEditMessage = 'Информация успешно изменена!';
-export const statusErrorText = 'Что-то пошло не так! Попробуйте еще раз.';
+export const SHORT_FILM = 40;
 
-export const statusErrors = [
-  {
-    name: 'login-form',
-    errors: [
-      {
-        status: 400,
-        message: 'Не передано одно из полей.'
-      },
-      {
-        status: 401,
-        message: 'Пользователь не найден. Проверьте Email и Пароль.'
-      },
-      {
-        status: 409,
-        message: 'Пользователь с таким email уже существует'
-      }
-    ]
-  },
-  {
-    name: 'register-form',
-    errors: [
-      {
-        status: 400,
-        message: 'Некорректно заполнено одно из полей. Попробуйте еще раз.'
-      }
-    ]
-  }
-];
+export const RENDER_MOVIES_1100 = { start: 0, end: 12 };
+export const RENDER_MOVIES_700_1100 = { start: 0, end: 8 };
+export const RENDER_MOVIES_700 = { start: 0, end: 5 };
+
+export const ADD_MOVIES_DEFAULT = 3;
+export const ADD_MOVIES_700_1100 = 2;
+
+export const REG_EXP_PASSWORD = /(?=.*[0-9])(?=.*[!@#$%^&*])((?=.*[a-z])|(?=.*[а-я]))((?=.*[A-Z])|(?=.*[А-Я]))/g;
+export const WEAK_PASSWORD = 'Необходимо использовать хотя бы 1 цифру, 1 прописную и 1 заглавную буквы, 1 спецсимвол. Длина пароля от 8-ми символов.';

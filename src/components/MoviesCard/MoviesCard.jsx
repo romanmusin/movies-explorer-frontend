@@ -1,83 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import "./MoviesCard.css";
 
-function MoviesCard(props) {
- const url = 'https://api.nomoreparties.co';
+function MoviesCard({
+  movie, onClickSave, isSavedMovies, savedMovies,
+}) {
+  const url = 'https://api.nomoreparties.co';
 
-  const [isSaved, setIsSaved] = React.useState(false);
-  const imageUrl = isSaved === true ? props.movie.image : url + props.movie.image.url;
+  const title = movie.nameRU.toString();
+  const duration = movie.duration.toString();
 
-  const film = {
-    country: props.movie.country || 'Не указано',
-    director: props.movie.director || 'Не указано',
-    duration: props.movie.duration || 0,
-    year: props.movie.year || 'Не указано',
-    description: props.movie.description || 'Не указано',
-    image: `${props.movie.image === null ? `${''}` : `https://api.nomoreparties.co${props.movie.image?.url}`}`,
-    trailer: props.movie?.trailerLink,
-    nameRU: props.movie.nameRU || 'Не указано',
-    nameEN: props.movie.nameEN || 'Не указано',
-    thumbnail: `https://api.nomoreparties.co${props.movie.image?.formats?.thumbnail?.url}`,
-    movieId: props.movie.id,
-  }
+  const imageUrl = isSavedMovies === true ? movie.image : url + movie.image.url;
+  const trailer = isSavedMovies === true ? movie.trailer : movie.trailerLink;
 
-  const isLikedMovie = React.useCallback(() => {
-    if (localStorage.getItem('savedMovies')) {
-      let savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
-      if (savedMovies.some(movie => movie.nameRU === props.movie.nameRU)) {
-        setIsSaved(true);
-      }
+  const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    if (isSavedMovies) {
+      setIsSaved(true);
+    } else {
+      setIsSaved(savedMovies.some((el) => el.movieId === movie.id));
     }
-  }, [props.movie.nameRU])
+  }, [savedMovies]);
 
-  function handleSaveMovie() {
-    props.handleSaveMovie(film);
-    setIsSaved(true);
+  function handleClickOnSave() {
+    if (!isSavedMovies) {
+      setIsSaved(!isSaved);
+    }
+    onClickSave(movie, isSaved, isSavedMovies);
   }
 
-  function handleDeleteMovie() {
-    setIsSaved(false);
-    props.handleDeleteMovie(props.movie._id);
-  }
-
-  function handleDislikeMovie() {
-    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-    const card = savedMovies.find(movie => movie.nameRU === props.movie.nameRU);
-    props.handleDeleteMovie(card._id);
-    setIsSaved(false);
-  }
-
-  React.useEffect(() => {
-    isLikedMovie();
-  }, [isLikedMovie]);
+  const isSavedBtn = `moviesCard__button-save ${isSaved && isSavedMovies === false ? 'moviesCard__button-save_saved' : ''} ${isSavedMovies ? 'moviesCard__button-save_delete' : ''}`;
 
 
   return (
     <li className="moviesCard">
       <div className="moviesCard__title-box">
-        <p className="moviesCard__title">{props.movie.nameRU}</p>
-        <p className="moviesCard__time">{props.movie.duration} мин</p>
+        <p className="moviesCard__title">{title}</p>
+        <p className="moviesCard__time">{duration} мин</p>
       </div>
       <a
-        href={props.isSavedMovies ? props.movie.trailer : props.movie.trailerLink}
+        href={trailer}
         target="_blank"
         rel="noreferrer"
         className="moviesCard__image-link"
       >
         <img
           className="moviesCard__image"
-          src={props.isSavedMovies ? props.movie.image : film.image}
-          //src={imageUrl}
-          alt={props.movie.nameRU}
+          
+          src={imageUrl}
+          alt={title}
         ></img>
       </a>
-      {/* <button className={isSavedBtn} type="button" onClick={handleClickOnSave}>
+      <button className={isSavedBtn} type="button" onClick={handleClickOnSave}>
         {isSaved ? "" : "Сохранить"}
-      </button> */}
-      {props.isSavedMovies ?
+      </button>
+      {/* {isSavedMovies ?
           <button type='button' className='moviesCard__button-save moviesCard__button-save_delete' onClick={handleDeleteMovie}/>
           : <button type='button' className={`${isSaved ? 'moviesCard__button-save moviesCard__button-save_saved' : 'moviesCard__button-save'}`}
-                    onClick={!isSaved ? handleSaveMovie : handleDislikeMovie}>{!isSaved && 'Сохранить'}</button>}
+                    onClick={!isSaved ? handleClickOnSave : handleDislikeMovie}>{!isSaved && 'Сохранить'}</button>} */}
     </li>
   );
 }

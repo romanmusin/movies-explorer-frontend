@@ -59,6 +59,33 @@
   
 }
 
+.profile__api {
+  font-size: 13px;
+  line-height: 1.2;
+  margin: 0 10px 30px 10px;
+  text-align: center;
+  display: none;
+}
+
+.profile__api_enabled {
+  display: block;
+  margin-bottom: -15px;
+}
+
+.profile__api_error {
+  color: #ee3465;
+}
+
+.profile__api_successful {
+  color: #2be080;
+}
+
+.profile__btns-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .profile__submit-btn {
   font-style: normal;
   font-weight: normal;

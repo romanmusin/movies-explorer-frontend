@@ -1,3 +1,7 @@
+.moreBtn__block {
+  display: flex;
+}
+
 .moreBtn__btn {
   background: #2f2f2f;
   border-radius: 6px;
@@ -17,7 +21,7 @@
   cursor: pointer;
 }
 
-.moreBtn__btn_disabled {
+.moreBtn__block_disabled {
   display: none;
 }
 

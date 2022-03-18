@@ -3,25 +3,21 @@ import { Link } from "react-router-dom";
 
 import "./LoginForm.css";
 import logo from "../../images/logo.svg";
-import { useFormWithValidation } from "../../utils/formValidation";
+import { useFormWithValidation } from "../ValidationForm/ValidationForm";
 import { REG_EXP_PASSWORD, WEAK_PASSWORD } from "../../utils/constants";
 
 function LoginForm({ name, title, buttonValue, text, linkText, onSubmitForm }) {
   const [passwordStrength, setPasswordStrength] = useState(0);
-  const [isVisiblePassword, setIsVisiblePassword] = useState(false);
 
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
-
-  function onShowPassword() {
-    setIsVisiblePassword(!isVisiblePassword);
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
     if (isValid) {
       resetForm();
       onSubmitForm(values);
+      console.log(values)
     }
   }
 
@@ -60,7 +56,10 @@ function LoginForm({ name, title, buttonValue, text, linkText, onSubmitForm }) {
                 Имя
               </label>
               <input
-                className={`login__input-text ${errors.name ? 'login__input-text_error' : ''}`}
+                className={`login__input-text ${
+                  errors.name ? "login__input-text_error" : ""
+                }`}
+                name="name"
                 type="text"
                 id="name"
                 onChange={handleChange}
@@ -69,6 +68,7 @@ function LoginForm({ name, title, buttonValue, text, linkText, onSubmitForm }) {
                 maxLength="30"
                 pattern="^[a-zA-Zа-яёЁА-Я\s-]+$"
                 required
+                disabled={`${name === 'login' ? 'true' : ''}`}
               ></input>
               {errors.name && (
                 <span className="login__text-error">{errors.name}</span>
@@ -80,7 +80,10 @@ function LoginForm({ name, title, buttonValue, text, linkText, onSubmitForm }) {
                 E-mail
               </label>
               <input
-                className={`login__input-text ${errors.email ? 'login__input-text_error' : ''}`}
+                className={`login__input-text ${
+                  errors.email ? "login__input-text_error" : ""
+                }`}
+                name="email"
                 type="email"
                 id="email"
                 placeholder="E-mail"
@@ -97,8 +100,11 @@ function LoginForm({ name, title, buttonValue, text, linkText, onSubmitForm }) {
                 Пароль
               </label>
               <input
-                className={`login__input-text ${errors.password ? 'login__input-text_error' : ''}`}
-                type={`${isVisiblePassword ? 'text' : 'password'}`}
+                className={`login__input-text ${
+                  errors.password ? "login__input-text_error" : ""
+                }`}
+                name="password"
+                type="password"
                 id="password"
                 onChange={checkPasswordComplexity}
                 placeholder="Пароль"
@@ -108,37 +114,41 @@ function LoginForm({ name, title, buttonValue, text, linkText, onSubmitForm }) {
                 <span className="login__text-error">{errors.password}</span>
               )}
               <span
-                className={`login__text-password ${passwordStrength === 1 && !errors.password && name !== 'login'
-                  ? 'password_weak'
-                  : ''}`}
-              >{`Сложность: слабый. `}
+                className={`login__text-password ${
+                  passwordStrength === 1 && !errors.password && name !== "login"
+                    ? "password_weak"
+                    : ""
+                }`}
+              >
+                {`Сложность: слабый. `}
               </span>
               <span
-                className={`login__text-password ${passwordStrength === 2 && !errors.password && name !== 'login'
-                  ? 'password_middle'
-                  : ''}`}
+                className={`login__text-password ${
+                  passwordStrength === 2 && !errors.password && name !== "login"
+                    ? "password_middle"
+                    : ""
+                }`}
               >
                 {`Сложность: средний. `}
               </span>
               <span
-                className={`login__text-password ${passwordStrength === 3 && !errors.password && name !== 'login'
-                  ? 'password_strong'
-                  : ''}`}
+                className={`login__text-password ${
+                  passwordStrength === 3 && !errors.password && name !== "login"
+                    ? "password_strong"
+                    : ""
+                }`}
               >
                 Сложность: сильный.
               </span>
-              <button
-                className={`login__password_invisible ${isVisiblePassword ? 'login__password_visible' : ''}`}
-                onClick={onShowPassword}
-                type="button"
-              />
             </div>
           </section>
         </div>
 
         <section className="login__buttons">
-        <button
-            className={`login__register-btn ${isValid ? '' : 'login__register-btn_disabled'}`}
+          <button
+            className={`login__register-btn ${
+              isValid ? "" : "login__register-btn_disabled"
+            }`}
             type="submit"
             value="buttonValue"
             disabled={!isValid}

@@ -5,13 +5,28 @@ const handleResponse = (res) => {
   return res.json();
 };
 
-export const getMovies = () => {
-  return fetch("https://api.nomoreparties.co/beatfilm-movies", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-  })
-    .then(handleResponse)
-};
+class Api {
+  constructor({ baseUrl }) {
+    this.baseUrl = baseUrl;
+  }
+
+  getMovies() {
+    return fetch(`${this.baseUrl}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(handleResponse)
+      .then((data) => {
+        localStorage.setItem('movies', JSON.stringify(data));
+        return data;
+      });
+  }
+}
+
+const MoviesApi = new Api({
+  baseUrl: 'https://api.nomoreparties.co/beatfilm-movies',
+});
+
+export default MoviesApi;

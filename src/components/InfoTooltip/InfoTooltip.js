@@ -1,20 +1,26 @@
-import './InfoTooltip.css';
-import Preloader from "../Preloader/Preloader";
+import React from 'react';
+import Popup from '../Popup/Popup';
 
-function InfoTooltip(props) {
+import './InfoTooltip.css';
+
+function InfoPopup({
+  isOpen, onClose, message,
+}) {
   return (
-    <div className={`popup ${props.isOpen && 'popup_opened'} popup_type_${props.name}`} onClick={(e) => {
-      if (e.target.classList.contains('popup')) props.onClose()
-    }}>
-      <div className="popup__container">
-        {!props.isLoading && <button type="button" className="button__modal button_type_close-popup" onClick={props.onClose}/>}
-        {props.statusImage &&
-        <img src={props.statusImage} alt="Статус запроса" className="popup__image popup__image_type_status"/>}
-        {props.isLoading && <Preloader />}
-        <h2 className={`popup__heading`}>{props.statusMessage}</h2>
+    <Popup popupOpened={isOpen} onClose={onClose} >
+      <div className="infoPopup">
+        <button
+          type="reset"
+          className="infoPopup__close-btn"
+          aria-label="close"
+          onClick={onClose}
+        ></button>
+        <div className='infoPopup__error'></div>
+        <p className="infoPopup__title popup__title_info">{message}
+        </p>
       </div>
-    </div>
-  )
+      </Popup>
+  );
 }
 
-export default InfoTooltip;
+export default InfoPopup;
