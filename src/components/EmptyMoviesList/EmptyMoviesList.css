@@ -1,0 +1,39 @@
+.emptyMoviesList {
+    max-width: 40%;
+    margin: 0 auto;
+    margin-top: 10%;
+    padding: 70px 0 80px 0;
+    overflow: hidden;
+  
+    font-family: "Inter", Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 1.4;
+    text-align: center;
+  
+    color: #8b8b8b;
+  }
+  
+  @media screen and (max-width: 1024px) {
+    .emptyMoviesList {
+      max-width: 50%;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .emptyMoviesList {
+      max-width: 60%;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .emptyMoviesList {
+      padding: 50px 0 80px 0;
+      max-width: 80%;
+    }
+  }

@@ -1,0 +1,102 @@
+.infoPopup {
+    position: relative;
+    max-width: 430px;
+    min-width: 430px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+    box-sizing: border-box;
+    padding: 40px 35px;
+    height: 330px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .infoPopup__close-btn {
+    position: absolute;
+    transform-origin: 0% 100%;
+    background-image: url("../../images/close.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    min-width: 40px;
+    transform: translate(100%, -100%);
+    right: 0;
+    top: 0;
+    background-color: transparent;
+    border: 0;
+    outline-style: none;
+    transition: 0.2s;
+    cursor: pointer;
+    padding: 20px 0;
+  }
+  
+  .infoPopup__close-btn:hover {
+    opacity: 0.6;
+  }
+  
+  .infoPopup__success {
+    width: 124px;
+    height: 124px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  
+  .infoPopup__error {
+    width: 124px;
+    height: 124px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  
+  .infoPopup__title {
+    max-width: 330px;
+    font-family: "Inter", arial, sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0;
+    text-align: center;
+  }
+  
+  @media screen and (max-width: 320px) {
+    .infoPopup {
+      max-width: 282px;
+      min-width: 282px;
+    }
+  }
+  
+  @media screen and (max-width: 540px) and (min-width: 321px) {
+    .infoPopup {
+      max-width: 310px;
+      min-width: 310px;
+    }
+  }
+  
+  @media screen and (max-width: 540px) {
+    .infoPopup {
+      padding: 50px 35px;
+      height: 308px;
+    }
+    .infoPopup__close-btn {
+      max-width: 26px;
+      max-height: 26px;
+      overflow: hidden;
+      background-size: contain;
+      transform: translate(0%, -100%);
+    }
+  
+    .infoPopup__title {
+      max-width: 238px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+  }

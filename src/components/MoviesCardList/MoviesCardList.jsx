@@ -1,20 +1,30 @@
 import React from "react";
-import './MoviesCardList.css';
-import MoviesCard from '../MoviesCard/MoviesCard';
+import "./MoviesCardList.css";
+import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ isSavedMovies, isOnSaved }) {
+function MoviesCardList({
+  isEmpty,
+  isSavedMovies,
+  movies,
+  onClickSave,
+  savedMovies,
+}) {
+  if (isEmpty) {
+    return null;
+  }
   return (
-    <>
-      <ul className="moviesCardList">
-        <MoviesCard isSavedMovies={isSavedMovies} isOnSaved={isOnSaved}/>
-        <MoviesCard isSavedMovies={true} isOnSaved={isOnSaved}/>
-        <MoviesCard isSavedMovies={isSavedMovies} isOnSaved={isOnSaved}/>
-        <MoviesCard isSavedMovies={true} isOnSaved={isOnSaved}/>
-        <MoviesCard isSavedMovies={true} isOnSaved={isOnSaved}/>
-        <MoviesCard isSavedMovies={isSavedMovies} isOnSaved={isOnSaved}/>
-      </ul>
-    </>
-  );
+    <ul className="moviesCardList">
+      {movies.map((movie) => (
+        <MoviesCard
+          movie={movie}
+          key={movie.id}
+          onClickSave={onClickSave}
+          isSavedMovies={isSavedMovies}
+          savedMovies={savedMovies}
+        />
+      ))}
+    </ul>
+  )
 }
 
 export default MoviesCardList;

@@ -1,9 +1,11 @@
 import React from "react";
-import LoginForm from '../LoginForm/LoginForm';
+import LoginForm from "../LoginForm/LoginForm";
 
-import './Register.css';
+function Register({ onRegister }) {
+  function handleSubmitForm(values) {
+    onRegister(values);
+  }
 
-function Register() {
   return (
     <LoginForm
       name="register"
@@ -11,6 +13,7 @@ function Register() {
       buttonValue="Зарегистрироваться"
       text="Уже зарегистрированы? "
       linkText="Войти"
+      onSubmitForm={handleSubmitForm}
     />
   );
 }

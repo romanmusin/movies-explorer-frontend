@@ -4,12 +4,10 @@
 }
 
 .filterCheckbox__switch-description {
-  font-style: normal;
-  font-weight: normal;
+  color: #ffffff;
   font-size: 13px;
-  line-height: 18px;
-  color: #FFFFFF;
-  margin: 0 0 0 14px;
+  line-height: 1.2;
+  margin: 0 14px;
 }
 
 .filterCheckbox__switch {
@@ -39,10 +37,10 @@
 .filterCheckbox__slider::before {
   position: absolute;
   content: "";
-  height: 8px;
-  width: 8px;
-  right: 6px;
-  top: 6px;
+  height: 16px;
+  width: 16px;
+  right: 2px;
+  top: 2px;
   background-color: white;
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -64,8 +62,38 @@
   transform: translateX(-16px);
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 768px) {
   .filterCheckbox {
-    padding-bottom: 0;
+    flex-direction: row-reverse;
+  }
+  .filterCheckbox__switch-description {
+    margin: 0 16px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .filterCheckbox {
+    justify-content: center;
+    padding: 45px 25px 0;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .filterCheckbox__search {
+    line-height: 1.1;
+    font-size: 18px;
+  }
+  .filterCheckbox__search::placeholder {
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .filterCheckbox {
+    justify-content: center;
+    margin-top: 41px;
+  }
+  .filterCheckbox__search::placeholder {
+    font-size: 18px;
   }
 }
